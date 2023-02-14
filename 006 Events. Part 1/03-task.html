@@ -12,13 +12,17 @@
             color: red;
             display: none;
         }
+
+        .unvalidate {
+            border: 1px solid red;
+        }
     </style>
 </head>
 
 <body>
     Операнд 1: <input id="input1" type="text"> <br />
     <span id="input1Error" class="error">Введите значение</span> <br />
-    
+
     Операнд 2: <input id="input2" type="text"> <br />
     <span id="input2Error" class="error">Введите значение</span> <br />
 
@@ -40,28 +44,64 @@
         input2 сделайте, в случае ошибки, #input2Error видимым.
         */
         let input1 = document.querySelector("#input1");
-        let input3 = document.querySelector("#input2");
+        let input2 = document.querySelector("#input2");
 
         let addBtn = document.querySelector("#add-btn");
         let remBtn = document.querySelector("#rem-btn");
         let mulBtn = document.querySelector("#mul-btn");
         let divBtn = document.querySelector("#div-btn");
+        let resBtn = document.querySelector("#reset-btn");
 
         addBtn.addEventListener("click", function () {
-            alert(Number(input1.value) + Number(input2.value));
+            if (isValidate()) {
+                alert(Number(input1.value) + Number(input2.value));
+            }
         });
 
         remBtn.addEventListener("click", function () {
-            alert(input1.value - input2.value);
+            if (isValidate()) {
+                alert(input1.value - input2.value);
+            }
         });
 
         mulBtn.addEventListener("click", function () {
-            alert(input1.value * input2.value);
+            if (isValidate()) {
+                alert(input1.value * input2.value);
+            }
         });
 
         divBtn.addEventListener("click", function () {
-            alert(input1.value / input2.value);
+            if (isValidate()) {
+                alert(input1.value / input2.value);
+            }
         });
+
+        resBtn.addEventListener("click", function () {
+            input1.value = 0;
+            input2.value = 0;
+        });
+
+        function isValidate() {
+            let spanMessageError1 = document.querySelector("#input1Error");
+            let spanMessageError2 = document.querySelector("#input2Error");
+            makeViewValidate(input1, spanMessageError1);
+            makeViewValidate(input2, spanMessageError2);
+            return (!isNaN(input1.value) && !isNaN(input2).value && !(input1.value === "") && !(input2.value === ""));
+        }
+
+
+        function makeViewValidate(nodeInput, nodeSpanMessage) {
+            if ((nodeInput.value === "") || (isNaN(nodeInput.value))) {
+                nodeSpanMessage.classList.add("error");
+                nodeSpanMessage.style.display = "unset";
+                nodeInput.classList.add("unvalidate");
+            } else {
+                nodeSpanMessage.classList.remove("error");
+                nodeSpanMessage.style.display = "none";
+                nodeInput.classList.remove("unvalidate");
+            }
+        }
+
     </script>
 </body>
 
