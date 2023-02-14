@@ -17,7 +17,7 @@
             width: 90%;
             display: flex;
             flex-direction: column;
-            background-color: rgba(255, 217, 0, 0.678);
+            background-color: burlywood;
             margin: auto;
             padding: 0 0 20px 0;
         }
@@ -45,23 +45,29 @@
             margin: 20px 0 7px;
         }
 
+        .row-culculator-btn{
+            display: flex;
+            justify-content: flex-end;
+        }
 
-        #btn {
-            margin: 20px 0 0 0;
+        .btn-calculate {
+            margin: 20px 20px 10px 60px;
+            padding: 2px 10px;
             background-color: black;
             color: white;
             font-size: 20px;
         }
 
-        #btn:hover {
+        .btn-calculate:hover {
             box-shadow: 0 0 5px 3px gray;
-            color: blue;
+            color: grey;
         }
 
-        #btn:active {
+        .btn-calculate:active {
             box-shadow: none;
-            color: blue;
-            border: 2px solid blue;
+            color: gray;
+            border: 2px solid black;
+            opacity: 0.7;
         }
 
         .calculator input {
@@ -92,8 +98,9 @@
                 <input type="text" name="radiusZil" id="radiusZil" placeholder="выведите значение">
                 <input type="text" name="heightZil" id="heightZil" placeholder="выведите значение">
             </div>
-            <div class="row-culculator">
-                <button id="btn">Рассчитать</button>
+            <div class="row-culculator-btn">
+                <button id="btn" class="btn-calculate">Рассчитать</button>
+                <button id="rnd" class="btn-calculate">Rundome</button>
             </div>
         </div>
         <p class="output">Объем цилиндра равен: <span id="result"></span></p>
@@ -109,10 +116,23 @@
 
         document.querySelector("#btn").addEventListener("click", () => {
             let radius = +document.querySelector("#radiusZil").value;
+            document.querySelector("#radiusZil").value = "";
             let heightZil = +document.querySelector("#heightZil").value;
+            document.querySelector("#heightZil").value = "";
             let result = Math.PI * radius * radius * heightZil;
             document.querySelector("#result").textContent = result;
-        })
+            createViewOfResult(radius, heightZil, result);
+        });
+
+        document.querySelector("#rnd").addEventListener("click", () =>{
+            document.querySelector("#radiusZil").value = (Math.random() * 10).toFixed(2);
+            document.querySelector("#heightZil").value = (Math.random() * 10).toFixed(2);
+        });
+
+        function createViewOfResult(radius, heightZil, result){
+            document.querySelector(".output")
+            .insertAdjacentHTML("afterend", `<p style="margin: 0 0 0 20px;">цилиндр с r=${radius} и h=${heightZil} имеет объем V=${result}`);
+        }
     </script>
 </body>
 
