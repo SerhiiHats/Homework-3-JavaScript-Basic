@@ -6,9 +6,98 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task 02</title>
+    <style>
+        .container {
+            width: 600px;
+            background-color: rgb(230, 227, 227);
+            padding: 5px 0 20px;
+        }
+
+        .calculator {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(255, 217, 0, 0.678);
+            margin: auto;
+            padding: 0 0 20px 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            color: rgb(9, 189, 9);
+            text-align: center;
+        }
+
+        .discription {
+            margin-left: 20px;
+            font-size: 18px;
+        }
+
+        .row-culculator {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .row-culculator>p {
+            margin: 20px 0 7px;
+        }
+
+
+        #btn {
+            margin: 20px 0 0 0;
+            background-color: black;
+            color: white;
+            font-size: 20px;
+        }
+
+        #btn:hover {
+            box-shadow: 0 0 5px 3px gray;
+            color: blue;
+        }
+
+        #btn:active {
+            box-shadow: none;
+            color: blue;
+            border: 2px solid blue;
+        }
+
+        .calculator input {
+            font-size: 18px;
+            padding: 0 0 0 10px;
+        }
+
+        .output {
+            margin: 30px;
+            font-size: 25px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="container">
+        <h1>Вычисление объема цилиндра</h1>
+        <p class="discription">Формула вычисления объема цилиндра: V = π * r<sup>2</sup> * h</p>
+        <p class="discription">где π = 3,14; r – радиус основания; h – высота цилиндра</p>
+        <h2>Воспользуйтесь калькулятором вычисления объема</h2>
+        <div class="calculator">
+            <div class="row-culculator">
+                <p>радиус основания - r</p>
+                <p>высота цилиндра - h</p>
+            </div>
+            <div class="row-culculator">
+                <input type="text" name="radiusZil" id="radiusZil" placeholder="выведите значение">
+                <input type="text" name="heightZil" id="heightZil" placeholder="выведите значение">
+            </div>
+            <div class="row-culculator">
+                <button id="btn">Рассчитать</button>
+            </div>
+        </div>
+        <p class="output">Объем цилиндра равен: <span id="result"></span></p>
+    </div>
     <script>
         /*
         Задание:
@@ -17,6 +106,13 @@
         Разместите на странице два поля ввода - первое для радиуса цилиндра, второе для высоты цилиндра.
         Объем цилиндра выведите в тело страницы.
         */
+
+        document.querySelector("#btn").addEventListener("click", () => {
+            let radius = +document.querySelector("#radiusZil").value;
+            let heightZil = +document.querySelector("#heightZil").value;
+            let result = Math.PI * radius * radius * heightZil;
+            document.querySelector("#result").textContent = result;
+        })
     </script>
 </body>
 
