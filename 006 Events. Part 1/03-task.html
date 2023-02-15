@@ -13,9 +13,14 @@
             display: none;
         }
 
+        .visible {
+            display: unset;
+        }
+
         .unvalidate {
             border: 1px solid red;
         }
+       
     </style>
 </head>
 
@@ -84,20 +89,19 @@
         function isValidate() {
             let spanMessageError1 = document.querySelector("#input1Error");
             let spanMessageError2 = document.querySelector("#input2Error");
-            makeViewValidate(input1, spanMessageError1);
-            makeViewValidate(input2, spanMessageError2);
-            return (!isNaN(input1.value) && !isNaN(input2).value && !(input1.value === "") && !(input2.value === ""));
+            createViewValidate(input1, spanMessageError1);
+            createViewValidate(input2, spanMessageError2);
+            return (!isNaN(input1.value) && !isNaN(input2.value) && !(input1.value === "") && !(input2.value === ""));
         }
 
 
-        function makeViewValidate(nodeInput, nodeSpanMessage) {
+
+        function createViewValidate(nodeInput, nodeSpanMessage) {
             if ((nodeInput.value === "") || (isNaN(nodeInput.value))) {
-                nodeSpanMessage.classList.add("error");
-                nodeSpanMessage.style.display = "unset";
+                nodeSpanMessage.classList.add("visible");
                 nodeInput.classList.add("unvalidate");
             } else {
-                nodeSpanMessage.classList.remove("error");
-                nodeSpanMessage.style.display = "none";
+                nodeSpanMessage.classList.remove("visible");
                 nodeInput.classList.remove("unvalidate");
             }
         }
