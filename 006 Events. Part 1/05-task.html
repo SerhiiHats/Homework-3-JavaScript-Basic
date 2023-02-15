@@ -36,6 +36,11 @@
             margin-left: 4px;
         }
 
+        .task button {
+            margin-left: auto;
+            padding: 0 5px;
+        }
+
         .completed {
             background-color: green;
             color: white;
@@ -98,8 +103,13 @@
             let p = document.createElement("p");
             p.innerText = text;
 
+            let nodeButton = document.createElement("button");
+            nodeButton.textContent = "Удалить";
+            nodeButton.addEventListener("click", deleteTask);
+
             div.append(input);
             div.append(p);
+            div.append(nodeButton);
 
             return div;
         }
@@ -107,20 +117,30 @@
         function changeTaskState() {
             if (this.checked) {
                 this.parentElement.classList.add("completed");
-            } else { 
+            } else {
                 this.parentElement.classList.remove("completed");
             }
         }
 
         function addTaskHandler() {
             if (taskNameInput.value) {
-                if (!startMessage.hidden) startMessage.hidden = true;
+                if (!startMessage.hidden) {
+                    startMessage.hidden = true;
+                }
 
                 let newTask = createTask(taskNameInput.value);
                 taskList.append(newTask);
                 taskNameInput.value = "";
-            } else { 
+            } else {
                 alert("введите имя задачи");
+            }
+        }
+
+        function deleteTask() {
+            let nodeParentForButton = this.parentElement;
+            nodeParentForButton.remove();
+            if (startMessage.nextElementSibling === null) {
+                startMessage.hidden = false;
             }
         }
     </script>
