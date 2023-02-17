@@ -20,7 +20,6 @@
         .unvalidate {
             border: 1px solid red;
         }
-       
     </style>
 </head>
 
@@ -56,6 +55,9 @@
         let mulBtn = document.querySelector("#mul-btn");
         let divBtn = document.querySelector("#div-btn");
         let resBtn = document.querySelector("#reset-btn");
+        let spanMessageError1 = document.querySelector("#input1Error");
+        let spanMessageError2 = document.querySelector("#input2Error");
+
 
         addBtn.addEventListener("click", function () {
             if (isValidate()) {
@@ -84,27 +86,29 @@
         resBtn.addEventListener("click", function () {
             input1.value = 0;
             input2.value = 0;
+            isValidate();
         });
 
+
         function isValidate() {
-            let spanMessageError1 = document.querySelector("#input1Error");
-            let spanMessageError2 = document.querySelector("#input2Error");
-            createViewValidate(input1, spanMessageError1);
-            createViewValidate(input2, spanMessageError2);
-            return (!isNaN(input1.value) && !isNaN(input2.value) && !(input1.value === "") && !(input2.value === ""));
-        }
+            let value1Validate = createViewValidate(input1, spanMessageError1);
+            let value2Validate = createViewValidate(input2, spanMessageError2);
+            return value1Validate && value2Validate;
 
-
-
-        function createViewValidate(nodeInput, nodeSpanMessage) {
-            if ((nodeInput.value === "") || (isNaN(nodeInput.value))) {
-                nodeSpanMessage.classList.add("visible");
-                nodeInput.classList.add("unvalidate");
-            } else {
-                nodeSpanMessage.classList.remove("visible");
-                nodeInput.classList.remove("unvalidate");
+            function createViewValidate(nodeInput, nodeSpanMessage) {
+                if ((nodeInput.value === "") || (isNaN(nodeInput.value))) {
+                    nodeSpanMessage.classList.add("visible");
+                    nodeInput.classList.add("unvalidate");
+                    return false;
+                } else {
+                    nodeSpanMessage.classList.remove("visible");
+                    nodeInput.classList.remove("unvalidate");
+                    return true;
+                }
             }
         }
+
+
 
     </script>
 </body>
